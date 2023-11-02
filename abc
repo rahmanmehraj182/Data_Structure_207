@@ -1,0 +1,181 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+
+struct LinkedList
+{
+    uint8_t id;
+    struct LinkedList *prev =NULL;
+    struct LinkedList *next = NULL;
+};
+
+struct LinkedList *std_list, *head, *tail, *curr;
+uint8_t n = 5;
+
+void input()
+{
+
+//    while(n> 0){
+//
+//        std_list = (struct LinkedList*)malloc(sizeof(struct LinkedList));
+//        uint8_t val;
+//        scanf("%d", &val);
+//
+//        std_list->id = val;
+//
+//        std_list->prev = NULL;
+//        std_list->next = NULL;
+//
+//        if(n == 5){
+//                printf("entered!");
+//            head = std_list;
+//            curr = std_list;
+//        }else{
+//             printf("%d", n);
+//            curr->next = std_list;
+//            std_list->prev = curr;
+//            curr = std_list;
+//            tail = std_list;
+//        }
+//        n--;
+//    }
+}
+
+void display()
+{
+    curr = head;
+    while(curr != NULL)
+    {
+        printf("%d ", curr->id
+              );
+        curr = curr->next;
+    }
+    printf("\n");
+}
+
+void insert_at_begin()
+{
+    int val;
+    printf("Enter the value of the node\n");
+    scanf("%d", &val);
+    if(head ==NULL)
+    {
+        head = (struct LinkedList*)malloc(sizeof(struct LinkedList));
+
+        head->id = val;
+        head->next = NULL;
+        head->prev = NULL;
+        tail = head;
+    }
+    else
+    {
+        std_list = (struct LinkedList*)malloc(sizeof(struct LinkedList));
+        std_list->id = val;
+        std_list->next = head;
+        head->prev = std_list;
+        head = std_list;
+
+    }
+}
+void insert_at_end()
+{
+    int val;
+    printf("Enter the value of the node\n");
+    scanf("%d", &val);
+    std_list = (struct LinkedList*)malloc(sizeof(struct LinkedList));
+    if(head == NULL)
+    {
+        std_list->id = val;
+        head = std_list;
+        tail = std_list;
+    }
+    else
+    {
+        std_list->id = val;
+        curr = head;
+
+
+        std_list->id = val;
+        tail->next = std_list;
+        std_list->prev = tail;
+        tail = std_list;
+
+
+
+    }
+}
+
+void insert_at_middle()
+{
+    int val, ind;
+    printf("Enter the index\n");
+    scanf("%d", &ind);
+    printf("Enter the value of the node\n");
+    scanf("%d", &val);
+    std_list = (struct LinkedList*)malloc(sizeof(struct LinkedList));
+    curr = head;
+    while(ind--)
+    {
+        curr = curr-> next;
+    }
+    printf("%d", curr->id);
+    if(curr != tail)
+    {
+        std_list->prev = curr;
+        std_list->next = curr->next;
+        curr->next->prev = std_list;
+        curr->next = std_list;
+    }
+    else
+    {
+        std_list->prev = tail->prev;
+        std_list->next = tail;
+        tail->prev->next = std_list;
+        tail->prev=std_list;
+
+    }
+
+}
+void runner()
+{
+    while(true)
+    {
+        printf("Press 1 to Enter a new Node at beginning\n");
+        printf("Press 2 to Enter a new Node at end\n");
+        printf("Press 3 to Enter a new Node at particular index\n");
+        printf("Press 4 to delete a Node from first \n");
+        printf("Press 5 to delete a Node from middle \n");
+        printf("Press 6 to delete a Node from last \n");
+        printf("Press 7 to display\n");
+        int n;
+        scanf("%d", &n);
+
+        switch(n)
+        {
+        case 1:
+            insert_at_begin();
+            break;
+        case 2:
+            insert_at_end();
+            break;
+        case 3:
+            insert_at_middle();
+            break;
+        case 7:
+            display();
+            break;
+        default:
+            break;
+
+        }
+    }
+
+}
+
+int main()
+{
+    runner();
+//    display();
+    return 0;
+
+}
